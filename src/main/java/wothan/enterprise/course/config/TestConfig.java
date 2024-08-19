@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import wothan.enterprise.course.entities.Category;
 import wothan.enterprise.course.entities.Order;
+import wothan.enterprise.course.entities.OrderItem;
 import wothan.enterprise.course.entities.Product;
 import wothan.enterprise.course.entities.User;
 import wothan.enterprise.course.entities.enums.OrderStatus;
 import wothan.enterprise.course.repositories.CategoryRepository;
+import wothan.enterprise.course.repositories.OrderItemRepository;
 import wothan.enterprise.course.repositories.OrderRepository;
 import wothan.enterprise.course.repositories.ProductRepository;
 import wothan.enterprise.course.repositories.UserRepository;
@@ -32,6 +34,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -67,5 +72,13 @@ public class TestConfig implements CommandLineRunner{
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
 	}
 }
